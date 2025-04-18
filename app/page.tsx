@@ -1,8 +1,17 @@
+// import Experience from "./components/Experience";
+import Footer from "./components/Footer";
+import Hero from "./components/Hero";
+import Navbar from "./components/Navbar";
+import Projects from "./components/projects";
+
 export default function Home() {
   return (
-    <div>
-      heyy welcome to my page
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <>
+      <Navbar />
+      <Hero />
+      {/* <Experience /> */}
+      <Projects />
+      <Footer />
+    </>
   );
 }
