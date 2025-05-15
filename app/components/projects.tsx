@@ -2,12 +2,12 @@ import Link from "next/link";
 
 export default function Projects() {
   const projects = [
-    {
-      title: "Signature Metal Cards",
-      description: "An Ecommerce app for Metal Cards purchase.",
-      tools: "Reactjs, Tailwind CSS",
-      link: "https://www.signaturecards.ng",
-    },
+    // {
+    //   title: "Signature Metal Cards",
+    //   description: "An Ecommerce app for Metal Cards purchase.",
+    //   tools: "Reactjs, Tailwind CSS",
+    //   link: "https://www.signaturecards.ng",
+    // },
     {
       title: "Caregiver Specialists Clinic",
       description: "Website for a Neurology and Endocrinology Clinic.",
