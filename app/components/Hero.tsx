@@ -9,10 +9,11 @@ export default function Hero() {
         </h2>
 
         <p className="md:w-[60%] text-gray-600">
-          Hi, I&apos;m Muhammad-Nabeel — a Software Engineer passionate about
+          I&apos;m Muhammad-Nabeel — a Software Engineer passionate about
           building impactful web and mobile applications. While I&apos;m
           actively rebuilding this space, feel free to explore some of my
-          previous work.
+          previous work or check out what I&apos;m currently building at{" "}
+          <a href="https://meetro.live" className="underline">Meetro</a>.
         </p>
       </div>
     </div>
