@@ -6,10 +6,18 @@ export default function Footer() {
       {/* <Image src={"/favicon.png"} alt="aesthetics" width={24} height={24} /> */}
       <h2 className="font-sans pt-10">
         I&apos;m available on{" "}
-        <Link href={"https://www.linkedin.com/in/olaoye-md-nabeel/"} className="underline">
-          LinkedIn
+        <Link
+          href={"https://www.linkedin.com/in/olaoye-md-nabeel/"}
+          className="underline">
+          LinkedIn,
         </Link>{" "}
-        and <Link href={"https://www.x.com/dtechbro"} className="underline">X</Link>
+        <Link href={"https://www.github.com/dtechbro"} className="underline">
+          Github
+        </Link>{" "}
+        and{" "}
+        <Link href={"https://www.x.com/dtechbro"} className="underline">
+          X
+        </Link>
       </h2>
     </div>
   );
