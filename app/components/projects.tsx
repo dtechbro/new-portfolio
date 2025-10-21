@@ -9,23 +9,41 @@ export default function Projects() {
     //   link: "https://www.signaturecards.ng",
     // },
     {
+      title: "Meetro ",
+      description: "Event management web app.",
+      tools: "Reactjs, Javascript, Tailwind CSS, Zustand",
+      link: "https://beta.meetro.live/",
+    },
+    {
+      title: "Enyata Talent Board",
+      description: "Global talent management system",
+      tools: "Nextjs, Typescript, Tailwind CSS, Zustand",
+      link: "https://talents.enyata.com/",
+    },
+    {
       title: "Caregiver Specialists Clinic",
       description: "Website for a Neurology and Endocrinology Clinic.",
       tools: "Nextjs, Tailwind CSS",
       link: "https://www.caregiverspecialistclinics.com.ng",
     },
     {
-      title: "RAININ Hackathon",
-      description: "Official RAININ hackathon website.",
-      tools: "Nextjs, Tailwind CSS",
-      link: "https://hackathon.rainigeria.com/",
+      title: "Lendsqr Dashboard",
+      description: "Admin Dashboard for 500 customers.",
+      tools: "React, SCSS",
+      link: "https://muhammad-nabeel-lendsqr-fe-test.vercel.app/",
     },
-    {
-      title: "RAININ Tech Summit",
-      description: "Official RAININ Tech Summit website.",
-      tools: "Nextjs, Tailwind CSS",
-      link: "https://summit.rainigeria.com/",
-    },
+    // {
+    //   title: "RAININ Hackathon",
+    //   description: "Official RAININ hackathon website.",
+    //   tools: "Nextjs, Tailwind CSS",
+    //   link: "https://hackathon.rainigeria.com/",
+    // },
+    // {
+    //   title: "RAININ Tech Summit",
+    //   description: "Official RAININ Tech Summit website.",
+    //   tools: "Nextjs, Tailwind CSS",
+    //   link: "https://summit.rainigeria.com/",
+    // },
     {
       title: "Aleeyah",
       description: "AI chatbot for nutrition recommendation.",
@@ -38,12 +56,7 @@ export default function Projects() {
       tools: "Vuejs, Tailwind CSS",
       link: "https://rendezvous-event.vercel.app/",
     },
-    {
-      title: "Lendsqr Dashboard",
-      description: "Admin Dashboard for 500 customers.",
-      tools: "React, SCSS",
-      link: "https://muhammad-nabeel-lendsqr-fe-test.vercel.app/",
-    },
+
     {
       title: "Web Wing Agency",
       description: "Website for a Software Agency Company.",
@@ -63,7 +76,8 @@ export default function Projects() {
           {projects.map((project) => (
             <div
               key={project.title}
-              className="flex flex-col items-start gap-2 bg-gray-100 p-5 rounded-md">
+              className="flex flex-col items-start gap-2 bg-gray-100 p-5 rounded-md"
+            >
               <h2 className="text-xl font-semibold font-sans">
                 {project.title}
               </h2>
@@ -74,7 +88,8 @@ export default function Projects() {
                 href={project.link}
                 className="text-gray-500 flex items-center gap-2 mt-2 hover:text-gray-800 transition-all duration-200 ease-in-out border-b-2 border-gray-500 hover:border-gray-800 "
                 target="_blank"
-                rel="noopener noreferrer">
+                rel="noopener noreferrer"
+              >
                 View Project{" "}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +97,8 @@ export default function Projects() {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="size-4">
+                  className="size-4"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
