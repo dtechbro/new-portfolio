@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${titillium.variable} ${geistMono.variable} antialiased`}>
+        className={`${titillium.variable} ${geistMono.variable} gradient-bg py-10 antialiased`}>
         {children}
       </body>
     </html>
