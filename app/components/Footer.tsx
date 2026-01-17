@@ -11,7 +11,7 @@ export default function Footer() {
         Let work together and bring your ideas to life.
         princeakinola05@gmail.com
       </Link>
-      <div className="flex gap-5 text-lg uppercase mt-2.5">
+      <div className="flex gap-5 text-lg uppercase mt-3">
         <a
           href="https://x.com/dtechbro"
           className="hover:underline hover:text-darkText"

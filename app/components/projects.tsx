@@ -89,7 +89,7 @@ export default function Projects() {
           {projects.map((project) => (
             <div
               key={project.title}
-              className={`group flex flex-col items-start justify-end gap-2 bg-gray-50 p-5 rounded-xl min-h-60 ${project.className}`}
+              className={`group flex flex-col items-start justify-end gap-2 bg-gray-50 p-5 rounded-xl min-h-64 ${project.className}`}
             >
               <Image
                 src={project.image}
@@ -105,20 +105,13 @@ export default function Projects() {
 
               <p className="text-gray-500">{project.description}</p>
 
-              {/* Animated container */}
-              <div className=" overflow-hidde max-h-0 group-hover:max-h-10 transition-[max-height] duration-300 ease-out">
+              {/* Animated container - visible on mobile, animated on desktop */}
+              <div className="max-h-10 lg:max-h-0 lg:group-hover:max-h-10 transition-[max-height] duration-300 ease-out">
                 <Link
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="
-        mt-2 flex items-center gap-2
-        text-gray-500 border-b-2 border-gray-500
-        opacity-0 translate-y-2
-        group-hover:opacity-100 group-hover:translate-y-0
-        transition-all duration-300 ease-out
-        hover:text-gray-800 hover:border-gray-800
-      "
+                  className="mt-2 flex items-center gap-2 text-gray-500 border-b-2 border-gray-500 lg:opacity-0 lg:translate-y-2 lg:group-hover:opacity-100 lg:group-hover:translate-y-0 transition-all duration-300 ease-out hover:text-gray-800 hover:border-gray-800"
                 >
                   View Project <GoArrowRight />
                 </Link>
