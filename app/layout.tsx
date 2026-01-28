@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Titillium_Web, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 const titillium = Titillium_Web({
   weight: ["200", "300", "400", "600", "700", "900"],
@@ -31,8 +32,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${titillium.variable} ${geistMono.variable} gradient-bg py-10 antialiased`}>
-        {children}
+        className={`${titillium.variable} ${geistMono.variable} gradient-bg py-10 antialiased`}
+      >
+        {children} <Analytics />
       </body>
     </html>
   );
