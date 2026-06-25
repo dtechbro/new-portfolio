@@ -15,7 +15,7 @@ export default function Projects() {
       description:
         "An event management application handling creation, ticketing, and guest managing",
       tools: "Reactjs, Javascript, Tailwind CSS, Zustand",
-      link: "https://beta.meetro.live/",
+      link: "https://meetro.vercel.app/",
       image: "/meetro.svg",
     },
     {
