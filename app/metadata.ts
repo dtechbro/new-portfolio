@@ -3,15 +3,17 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.dtechbro.xyz"),
   title: {
-    default: "Muhammad Nabeel — Software Engineer | dtechbro",
+    default: "Muhammad-Nabeel — Software Engineer | dtechbro",
     template: "%s | dtechbro",
   },
   description:
     "Software Engineer specializing in building reliable, scalable web and mobile applications. Expert in React, Next.js, TypeScript, and modern frontend architecture. Available for roles and freelance projects.",
   keywords: [
-    "Muhammad Nabeel",
+    "Muhammad-Nabeel",
+    "Muhammad-Nabeel Olaoye",
     "dtechbro",
     "Software Engineer",
+    "Frontend Engineer",
     "Frontend Developer",
     "React Developer",
     "Next.js Developer",
