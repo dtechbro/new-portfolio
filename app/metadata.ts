@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     "Software Engineer specializing in building reliable, scalable web and mobile applications. Expert in React, Next.js, TypeScript, and modern frontend architecture. Available for roles and freelance projects.",
   keywords: [
     "Muhammad-Nabeel",
+    "GMD",
     "Muhammad-Nabeel Olaoye",
     "dtechbro",
     "Software Engineer",
