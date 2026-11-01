@@ -1,125 +1,266 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { GoArrowRight } from "react-icons/go";
+import { projects, Project } from "../data/projects";
+
+const categories = ["All", "Frontend", "Fullstack"] as const;
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.15 },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+};
 
 export default function Projects() {
-  const projects = [
-    // {
-    //   title: "Signature Metal Cards",
-    //   description: "An Ecommerce app for Metal Cards purchase.",
-    //   tools: "Reactjs, Tailwind CSS",
-    //   link: "https://www.signaturecards.ng",
-    // },
-    {
-      title: "Meetro ",
-      description:
-        "An event management application handling creation, ticketing, and guest managing",
-      tools: "Reactjs, Javascript, Tailwind CSS, Zustand",
-      link: "https://meetro.vercel.app/",
-      image: "/meetro.svg",
-    },
-    {
-      title: "Enyata Talent Board",
-      description:
-        "Global talent management system to discover Africa's top tech talent.",
-      tools: "Nextjs, Typescript, Tailwind CSS, Zustand",
-      link: "https://talents.enyata.com/",
-      image: "/enyata.svg",
-    },
-    {
-      title: "Caregiver Specialists Clinic",
-      description: "Website for a Neurology and Endocrinology Clinic.",
-      tools: "Nextjs, Tailwind CSS",
-      link: "https://www.caregiverspecialistclinics.com.ng",
-      className: "lg:row-span-2",
-      image: "/caregiver.png",
-    },
-    {
-      title: "Lendsqr Dashboard",
-      description: "Admin Dashboard for 500 customers.",
-      tools: "React, SCSS",
-      link: "https://muhammad-nabeel-lendsqr-fe-test.vercel.app/",
-      className: "lg:row-span-2",
-      image: "/lendsqr.svg",
-    },
-    // {
-    //   title: "RAININ Hackathon",
-    //   description: "Official RAININ hackathon website.",
-    //   tools: "Nextjs, Tailwind CSS",
-    //   link: "https://hackathon.rainigeria.com/",
-    // },
-    // {
-    //   title: "RAININ Tech Summit",
-    //   description: "Official RAININ Tech Summit website.",
-    //   tools: "Nextjs, Tailwind CSS",
-    //   link: "https://summit.rainigeria.com/",
-    // },
-    // {
-    //   title: "Aleeyah",
-    //   description: "AI chatbot for nutrition recommendation.",
-    //   tools: "Nextjs, Tailwind CSS, MongoDB, Gemini",
-    //   link: "https://aleeyah-beta.vercel.app/",
-    // },
-    {
-      title: "Web Wing Agency",
-      description: "Website for a Software Agency Company.",
-      tools: "HTML, CSS, JavaScript",
-      link: "https://web-wing-geekhive-team-project-one.netlify.app/",
+  const [activeFilter, setActiveFilter] = useState<string>("All");
 
-      image: "/web-wing.svg",
-    },
-    {
-      title: "Rendezvous Event",
-      description: "Website to scout for events and details.",
-      tools: "Vuejs, Tailwind CSS",
-      link: "https://rendezvous-event.vercel.app/",
-      className: "lg:col-span-2",
-      image: "/rendezvous.svg",
-    },
-  ];
+  // Filter projects by active category tab
+  const matchingProjects = projects.filter(
+    (p) =>
+      activeFilter === "All" ||
+      p.category.toLowerCase() === activeFilter.toLowerCase()
+  );
+
+  // Determine spotlight / featured project for this view:
+  // 1. If a matching project is marked featured, spotlight it.
+  // 2. Otherwise, if there is only 1 project in this category, spotlight it.
+  const featured: Project | undefined =
+    matchingProjects.find((p) => p.featured) ||
+    (activeFilter !== "All" && matchingProjects.length === 1
+      ? matchingProjects[0]
+      : undefined);
+
+  // Remaining projects for the grid
+  const gridProjects = matchingProjects.filter(
+    (p) => p.title !== featured?.title
+  );
 
   return (
-    <div className="mt-10 max-w-5xl mx-auto p-4">
-      <h2 className="font-sans font-medium text-xl mb-4">
-        Some cool stuffs I built
-      </h2>
+    <section id="projects" className="max-w-5xl mx-auto px-4 py-20">
+      {/* Scroll reveal for the section container */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6 }}
+      >
+        {/* Section header */}
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+          <div>
+            <span className="font-mono text-xs uppercase tracking-[0.25em] text-muted block mb-2">
+              Selected Work
+            </span>
+            <h2 className="font-sans font-semibold text-3xl md:text-4xl tracking-tight">
+              Projects I&apos;ve Built
+            </h2>
+          </div>
 
-      <div className="">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((project) => (
-            <div
-              key={project.title}
-              className={`group flex flex-col items-start justify-end gap-2 bg-gray-50 p-5 rounded-xl min-h-64 ${project.className}`}
-            >
-              <Image
-                src={project.image}
-                alt={project.title}
-                width={50}
-                height={50}
-                className="w-12 h-12"
-              />
+          {/* Category filter tabs */}
+          <div className="flex gap-1 p-1 rounded-full bg-white/40 border border-black/5 w-fit">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setActiveFilter(cat)}
+                className={`relative px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all duration-300 ${
+                  activeFilter === cat
+                    ? "text-foreground font-medium"
+                    : "text-muted hover:text-foreground/70"
+                }`}
+              >
+                {activeFilter === cat && (
+                  <motion.span
+                    layoutId="activeFilter"
+                    className="absolute inset-0 bg-white rounded-full shadow-sm"
+                    transition={{
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 30,
+                    }}
+                  />
+                )}
+                <span className="relative z-10">{cat}</span>
+              </button>
+            ))}
+          </div>
+        </div>
 
-              <h2 className="text-xl font-semibold font-sans">
-                {project.title}
-              </h2>
-
-              <p className="text-gray-500">{project.description}</p>
-
-              {/* Animated container - visible on mobile, animated on desktop */}
-              <div className="max-h-10 lg:max-h-0 lg:group-hover:max-h-10 transition-[max-height] duration-300 ease-out">
+        {/* Dynamic Project Content with AnimatePresence */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeFilter}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            {/* Spotlight / Featured project card */}
+            {featured && (
+              <motion.div variants={itemVariants} className="mb-8">
                 <Link
-                  href={project.link}
+                  href={featured.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 flex items-center gap-2 text-gray-500 border-b-2 border-gray-500 lg:opacity-0 lg:translate-y-2 lg:group-hover:opacity-100 lg:group-hover:translate-y-0 transition-all duration-300 ease-out hover:text-gray-800 hover:border-gray-800"
+                  className="group block"
                 >
-                  View Project <GoArrowRight />
+                  <div className="project-card relative overflow-hidden rounded-2xl bg-white/60 border border-black/5 p-6 md:p-10">
+                    <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
+                      <div className="shrink-0">
+                        <div className="w-16 h-16 md:w-20 md:h-20 rounded-xl bg-gray-50 flex items-center justify-center border border-black/5">
+                          <Image
+                            src={featured.image}
+                            alt={featured.title}
+                            width={50}
+                            height={50}
+                            className="w-10 h-10 md:w-12 md:h-12"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-3">
+                          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted bg-foreground/5 px-2 py-0.5 rounded">
+                            {featured.featured ? "Featured" : featured.category}
+                          </span>
+                          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
+                            {featured.year}
+                          </span>
+                        </div>
+                        <h3 className="font-sans font-semibold text-2xl md:text-3xl mb-2 tracking-tight">
+                          {featured.title}
+                        </h3>
+                        <p className="text-gray-500 text-sm md:text-base mb-4 max-w-xl">
+                          {featured.description}
+                        </p>
+
+                        {featured.highlights && (
+                          <ul className="mb-4 space-y-1">
+                            {featured.highlights.map((h) => (
+                              <li
+                                key={h}
+                                className="text-xs font-mono text-muted flex items-center gap-2"
+                              >
+                                <span className="w-1 h-1 bg-muted rounded-full" />
+                                {h}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {featured.tools.map((tool) => (
+                            <span
+                              key={tool}
+                              className="px-2.5 py-1 text-[11px] font-mono uppercase tracking-wider bg-foreground/5 text-foreground/60 rounded-md"
+                            >
+                              {tool}
+                            </span>
+                          ))}
+                        </div>
+
+                        <span className="inline-flex items-center gap-2 text-sm text-foreground/60 group-hover:text-foreground transition-colors font-mono">
+                          View Project{" "}
+                          <GoArrowRight className="transition-transform group-hover:translate-x-1" />
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </Link>
+              </motion.div>
+            )}
+
+            {/* Grid of remaining projects */}
+            {gridProjects.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {gridProjects.map((project) => (
+                  <motion.div
+                    key={project.title}
+                    variants={itemVariants}
+                    className="h-full"
+                  >
+                    <Link
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block h-full"
+                    >
+                      <div className="project-card flex flex-col justify-between p-6 rounded-xl bg-white/40 border border-transparent hover:border-black/5 hover:bg-white/60 min-h-[220px] h-full transition-colors duration-300">
+                        <div>
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            width={44}
+                            height={44}
+                            className="w-11 h-11 mb-4"
+                          />
+
+                          <div className="flex items-center gap-3 mb-1.5">
+                            <h3 className="font-sans font-semibold text-lg tracking-tight">
+                              {project.title}
+                            </h3>
+                            <span className="font-mono text-[10px] text-muted">
+                              {project.year}
+                            </span>
+                          </div>
+                          <p className="text-gray-500 text-sm mb-4">
+                            {project.description}
+                          </p>
+                        </div>
+
+                        <div>
+                          <div className="flex flex-wrap gap-1.5 mb-4">
+                            {project.tools.map((tool) => (
+                              <span
+                                key={tool}
+                                className="px-2 py-0.5 text-[10px] font-mono uppercase tracking-wider bg-foreground/5 text-foreground/50 rounded"
+                              >
+                                {tool}
+                              </span>
+                            ))}
+                          </div>
+
+                          <span className="inline-flex items-center gap-1.5 text-sm text-foreground/40 group-hover:text-foreground transition-all duration-300 font-mono">
+                            <span className="link-underline">View Project</span>
+                            <GoArrowRight
+                              size={14}
+                              className="transition-transform group-hover:translate-x-1"
+                            />
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                ))}
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
+    </section>
   );
 }
