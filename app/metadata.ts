@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     "Web Developer",
     "Remote Software Engineer",
     "Frontend Engineer Nigeria",
+    "Frontend Engineer EMEA",
     "Hire React Developer",
     "Hire Frontend Developer",
     "JavaScript Developer",
